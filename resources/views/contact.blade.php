@@ -82,6 +82,7 @@
                             <form action="{{route('contact.destroy', $email->id)}}" class="inline" method="post">
                                 @csrf
                                 @method('DELETE')
+                                <input type="hidden" name="getEmail" value="email">
                                 <button type="submit">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline bg-white text-red-500 rounded hover:text-white hover:bg-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -99,7 +100,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                             </svg>
                             <div class="editPhone inline">
-                                <p class="inline align-middle">
+                                <p class="inline align-middle @error('message') @enderror">
                                     {{$phone->phone}}
                                 </p>
                                 <button onclick="getPhoneClick()">
@@ -124,6 +125,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit">
+                                    <input type="hidden" name="getPhone" value="phone">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline bg-white text-red-500 rounded hover:text-white hover:bg-red-500" id="delete" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
@@ -131,16 +133,12 @@
                             </form>
                         </div>
                     @endforeach
-                    @error('phone') 
-                        <div class="text-red-500 mt-2 text-sm">
-                            {{ $message }}
-                        </div>
-                    @enderror
                 </div>
             </div>
             <form action="{{route('dashboard.destroy', $contacts->id)}}" method="POST">
                 @csrf
                 @method('DELETE')
+                <input type="hidden" name="deletePhone">
                 <button type="submit" class="bg-red-500 text-white rounded float-right font-bold align-middle p-3">
                     Удалить контакт
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">

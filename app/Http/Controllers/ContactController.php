@@ -9,12 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 class ContactController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
     /**
      * Display a listing of the resource.
@@ -114,10 +115,14 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        Email::destroy($id);
-        Phone::destroy($id);
+    public function destroy(Request $request, $id)
+    {       
+        if ($request->input('getEmail') === "email") {
+            Email::destroy($id);
+        }
+        if ($request->input('getPhone') === "phone") {
+            Phone::destroy($id);
+        }
         return redirect()->back();
     }
 }
